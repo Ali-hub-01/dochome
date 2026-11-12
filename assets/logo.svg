@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="DocHome">
+  <defs>
+    <linearGradient id="dhBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2F6BFF"/>
+      <stop offset="1" stop-color="#0B2A7A"/>
+    </linearGradient>
+    <linearGradient id="dhPulse" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9BE7DB"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="116" height="116" rx="34" fill="url(#dhBg)"/>
+  <!-- дом -->
+  <path d="M30 60 L64 32 L98 60 V96 a6 6 0 0 1 -6 6 H36 a6 6 0 0 1 -6 -6 Z"
+        fill="none" stroke="#ffffff" stroke-width="7" stroke-linejoin="round" opacity=".95"/>
+  <!-- пульс внутри дома -->
+  <path d="M40 76 H52 l5 -12 8 24 6 -18 4 6 H88"
+        fill="none" stroke="url(#dhPulse)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- коралловый плюс -->
+  <g fill="#FF6B4A">
+    <rect x="86" y="22" width="8" height="24" rx="3"/>
+    <rect x="78" y="30" width="24" height="8" rx="3"/>
+  </g>
+</svg>
