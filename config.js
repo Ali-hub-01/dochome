@@ -24,7 +24,7 @@ window.DOCHOME = {
   /* Telegram-бот (через Cloudflare Worker). Оставьте пустым — заявки
      уйдут только в WhatsApp, как и сейчас. */
   telegram: {
-    worker: '',   /* например: 'https://dochome-leadbot.example.workers.dev' */
-    secret: ''
+    worker: 'https://dochome-leadbot.alikanafin.workers.dev',
+    secret: '7e16c934307e2147ed0a7e043e43258161536f6599f2f9f3'
   }
 };
