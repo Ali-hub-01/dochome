@@ -200,7 +200,7 @@
   }
 
   /* ---------- Форма заявки → WhatsApp (+ Telegram, + конверсия) ---------- */
-  var WA = C.wa || '77078141226';
+  var WA = C.wa || '77003281750';
   var form = document.getElementById('leadForm');
   var success = document.getElementById('formSuccess');
   var formInView = false;

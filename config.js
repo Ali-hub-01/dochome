@@ -7,9 +7,9 @@ window.DOCHOME = {
   site: 'DocHome (Астана/Алматы)',
 
   /* Телефон: в формате для ссылок tel: и WhatsApp (без «+», только цифры) */
-  phone: '+77078141226',
-  phoneDisplay: '8 707 814 12 26',
-  wa: '77078141226',
+  phone: '+77003281750',
+  phoneDisplay: '8 700 328 17 50',
+  wa: '77003281750',
 
   /* Google Ads. Оставьте googleAdsId пустым — тег не подключится.
      Пример: googleAdsId: 'AW-1234567890',
