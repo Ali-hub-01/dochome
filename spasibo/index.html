@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Спасибо! Заявка принята — DocHome</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0B1B3A">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700;800&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=1">
+
+  <script src="../config.js?v=4"></script>
+  <style>
+    .thanks { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 40px 16px; background: var(--cream); }
+    .thanks-card { width: 100%; max-width: 520px; background: #fff; border-radius: var(--r-lg); box-shadow: var(--shadow-soft); padding: 40px 32px; text-align: center; }
+    .thanks-logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 28px; text-decoration: none; }
+    .thanks-check { width: 72px; height: 72px; margin: 0 auto 22px; border-radius: 50%; background: var(--mint-soft); color: var(--mint); display: flex; align-items: center; justify-content: center; }
+    .thanks h1 { font-family: var(--font-display); font-size: clamp(1.6rem, 5vw, 2.1rem); line-height: 1.15; color: var(--navy); margin-bottom: 12px; }
+    .thanks p { color: var(--muted); line-height: 1.55; margin-bottom: 26px; }
+    .thanks-actions { display: grid; gap: 12px; }
+    .thanks-phone { margin-top: 22px; font-size: .95rem; color: var(--muted); }
+    .thanks-phone a { color: var(--navy); font-weight: 600; text-decoration: none; }
+    @media (max-width: 480px) { .thanks-card { padding: 32px 20px; } }
+  </style>
+</head>
+<body>
+  <main class="thanks">
+    <div class="thanks-card">
+      <a href="../" class="thanks-logo logo" aria-label="DocHome — на главную">
+        <img src="../assets/logo.svg" alt="" class="logo-icon" width="42" height="42">
+        <span class="logo-word">Doc<em>Home</em></span>
+      </a>
+      <div class="thanks-check" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h1>Спасибо! Заявка принята</h1>
+      <p>Мы уже получили ваш номер и скоро свяжемся с вами. Если WhatsApp не открылся, нажмите кнопку ниже.</p>
+      <div class="thanks-actions">
+        <a class="btn btn-coral btn-lg btn-block" id="waAgain" href="https://wa.me/77003281750" target="_blank" rel="noopener"><span>Открыть WhatsApp</span></a>
+        <a class="btn btn-ghost btn-lg btn-block" href="../"><span>Вернуться на сайт</span></a>
+      </div>
+      <p class="thanks-phone">Или позвоните: <a href="tel:+77003281750">8 700 328 17 50</a> — круглосуточно</p>
+    </div>
+  </main>
+
+  <script>
+  (function () {
+    'use strict';
+    var C = window.DOCHOME || {};
+    var pending = false;
+    try {
+      pending = sessionStorage.getItem('dh_conv_pending') === '1';
+      var wa = sessionStorage.getItem('dh_last_wa');
+      if (wa) document.getElementById('waAgain').href = wa;
+    } catch (e) {}
+
+    if (!C.googleAdsId) return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(C.googleAdsId);
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', C.googleAdsId);
+
+    /* Конверсия «Заявка» — только после реальной заявки в этой вкладке, один раз.
+       Прямой заход или обновление страницы конверсию не дают. */
+    var conv = C.conversions || {};
+    if (pending && conv.lead) {
+      window.gtag('event', 'conversion', { send_to: conv.lead, value: 1.0, currency: 'USD' });
+      try { sessionStorage.removeItem('dh_conv_pending'); } catch (e) {}
+    }
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="tel:"]');
+      if (a && conv.phone) window.gtag('event', 'conversion', { send_to: conv.phone, value: 1.0, currency: 'USD' });
+    });
+  })();
+  </script>
+</body>
+</html>

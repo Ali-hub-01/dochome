@@ -11,14 +11,13 @@ window.DOCHOME = {
   phoneDisplay: '8 700 328 17 50',
   wa: '77003281750',
 
-  /* Google Ads. Оставьте googleAdsId пустым — тег не подключится.
-     Пример: googleAdsId: 'AW-1234567890',
-             conversions: { phone: 'AW-1234567890/AbCdEf', lead: '...', contact: '...' } */
-  googleAdsId: '',
+  /* Google Ads (аккаунт DocHome 781-936-3282). Оставьте googleAdsId пустым — тег не подключится.
+     lead засчитывается только на странице /spasibo после реальной заявки. */
+  googleAdsId: 'AW-18581343262',
   conversions: {
-    phone: '',    /* клик по номеру телефона */
-    lead: '',     /* отправка формы заявки */
-    contact: ''   /* клик по WhatsApp */
+    phone: 'AW-18581343262/u_XdCMuJubodEJ6Yo5xF',  /* клик по номеру телефона (второстепенная) */
+    lead: 'AW-18581343262/DQsoCMiJubodEJ6Yo5xF',   /* заявка → страница «Спасибо» (основная) */
+    contact: ''                                     /* клик по WhatsApp — не считаем */
   },
 
   /* Telegram-бот (через Cloudflare Worker). Оставьте пустым — заявки

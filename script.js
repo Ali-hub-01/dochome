@@ -223,39 +223,40 @@
 
       var valid = true;
       [form.elements.name, form.elements.phone].forEach(function (input) {
-        var bad = !input.value.trim() || (input.type === 'tel' && input.value.replace(/\D/g, '').length < 10);
+        var bad = !input.value.trim() || (input.type === 'tel' &&
+          !(window.dochomeValidPhone ? window.dochomeValidPhone(input.value) : input.value.replace(/\D/g, '').length >= 10));
         input.classList.toggle('invalid', bad);
         if (bad) valid = false;
       });
       if (!valid) { (name ? form.elements.phone : form.elements.name).focus(); return; }
 
+      if (window.dochomeFormatPhone) phone = window.dochomeFormatPhone(phone);
       var lines = ['Здравствуйте! Заявка с сайта DocHome:', 'Имя: ' + name, 'Телефон: ' + phone];
       if (service) lines.push('Услуга: ' + service);
       if (address) lines.push('Район/адрес: ' + address);
       if (comment) lines.push('Комментарий: ' + comment);
-
-      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+      var waUrl = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n'));
 
       form.hidden = true;
       success.hidden = false;
 
-      conversion('lead');
-      if (window.dochomeSendLead) {
-        window.dochomeSendLead({ name: name, phone: phone, service: service, address: address, comment: comment, source: 'форма на сайте' });
-      }
+      /* Telegram + WhatsApp + переход на /spasibo (конверсия засчитывается там) */
+      var f = { name: name, phone: phone, service: service, address: address, comment: comment, source: 'форма на сайте' };
+      if (window.dochomeLead) window.dochomeLead(f, waUrl);
+      else window.open(waUrl, '_blank', 'noopener');
     });
     form.addEventListener('input', function (e) {
       if (e.target.classList && e.target.classList.contains('invalid') && e.target.value.trim()) e.target.classList.remove('invalid');
     });
   }
 
-  /* ---------- Клики по телефону / WhatsApp → конверсии ---------- */
+  /* ---------- Клик по телефону → второстепенная конверсия ----------
+     Голый клик по WhatsApp конверсией не считается: заявка — только /spasibo. */
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a');
     if (!link) return;
     var href = link.getAttribute('href') || '';
     if (href.indexOf('tel:') === 0) conversion('phone');
-    else if (href.indexOf('wa.me') !== -1) conversion('contact');
   });
 
   /* ---------- Год в футере ---------- */
